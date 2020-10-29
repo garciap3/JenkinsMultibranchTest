@@ -1,6 +1,8 @@
 pipeline {
   agent any
-
+    triggers {
+        cron('H */4 * * 1-5')
+    }
   environment {
       // This returns 0 or 1 depending on whether build number is even or odd
       FOO = "${currentBuild.getNumber() % 2}"
