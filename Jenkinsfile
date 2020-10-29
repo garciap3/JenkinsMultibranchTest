@@ -1,7 +1,7 @@
 pipeline {
      agent any
      triggers {
-        cron('H */2 * * 1-5')
+        cron('0 */30 * ? * *')
     }
     // Adds timestamps to the output logged by steps inside the wrapper.
     stages {
