@@ -1,16 +1,25 @@
-node {
-    // Adds timestamps to the output logged by steps inside the wrapper.
-    timestamps {
-        // Just some echoes to show the timestamps.
-        stage "First echo"
-        echo "Hey, look, I'm echoing with a timestamp!"
+pipeline {
+  agent any
 
-        // A sleep to make sure we actually get a real difference!
-        stage "Sleeping"
-        sleep 30
+  environment {
+      // This returns 0 or 1 depending on whether build number is even or odd
+      FOO = "${currentBuild.getNumber() % 2}"
+  }
 
-        // And a final echo to show the time when we wrap up.
-        stage "Second echo"
-        echo "Wonder what time it is now?"
+  stages {
+    stage("Hello") {
+      steps {
+        echo "Hello"
+      }
     }
+    stage("Evaluate FOO") {
+      when {
+        // stage won't be skipped as long as FOO == 0, build number is even
+        environment name: "FOO", value: "0"
+      }
+      steps {
+        echo "World"
+      }
+    }
+  }
 }
