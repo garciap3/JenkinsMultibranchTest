@@ -4,7 +4,7 @@ pipeline {
         cron('H */2 * * 1-5')
     }
     // Adds timestamps to the output logged by steps inside the wrapper.
-    timestamps {
+    stages {
         // Just some echoes to show the timestamps.
         stage "First echo"
         echo "Hey, look, I'm echoing with a timestamp!"
