@@ -1,4 +1,5 @@
-node {
+pipeline {
+     agent any
      triggers {
         cron('H */2 * * 1-5')
     }
