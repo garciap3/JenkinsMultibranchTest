@@ -1,23 +1,25 @@
 pipeline {
-     agent any
-     triggers {
-        cron('H */2 * * 1-5')
-    }
-    // Adds timestamps to the output logged by steps inside the wrapper.
-    stages {
-        // Just some echoes to show the timestamps.
-         stage("First echo"){
-              steps {echo "Hey, look, I'm echoing with a timestamp!" }
-         }
+  agent any
 
-        // A sleep to make sure we actually get a real difference!
-         stage("Sleeping"){
-              steps{sleep 30}
-         }
+  environment {
+    // FOO will be available in entire pipeline
+    FOO = "PIPELINE"
+  }
 
-        // And a final echo to show the time when we wrap up.
-         stage("Second echo"){
-              steps{echo "Wonder what time it is now?"}
-         }
+  stages {
+    stage("local") {
+      environment {
+        // BAR will only be available in this stage
+        BAR = "STAGE"
+      }
+      steps {
+        sh 'echo "FOO is $FOO and BAR is $BAR"'
+      }
     }
+    stage("global") {
+      steps {
+        sh 'echo "FOO is $FOO and BAR is $BAR"'
+      }
+    }
+  }
 }
