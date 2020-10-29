@@ -1,7 +1,7 @@
 pipeline {
   agent any
      triggers {
-        cron('H */30 * * * 1-5')
+        cron('H * * * *')
     }
   environment {
     // FOO will be available in entire pipeline
