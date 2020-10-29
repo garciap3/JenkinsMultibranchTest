@@ -1,5 +1,5 @@
 node {
-     riggers {
+     triggers {
         cron('H */2 * * 1-5')
     }
     // Adds timestamps to the output logged by steps inside the wrapper.
